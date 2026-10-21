@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">تطبيق الملاحظات</string>
+    <string name="hint_title">عنوان الملاحظة...</string>
+    <string name="hint_content">اكتب محتوى الملاحظة هنا...</string>
+    <string name="btn_add">إضافة ملاحظة</string>
+    <string name="delete">حذف</string>
+</resources>
