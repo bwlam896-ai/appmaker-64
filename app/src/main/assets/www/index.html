@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاكي تطبيق الملاحظات</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0e0e0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .phone-frame {
+            width: 360px;
+            height: 740px;
+            background-color: #f8f9fa;
+            border: 16px solid #333;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+        .status-bar {
+            height: 24px;
+            background-color: #6200EE;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .app-bar {
+            height: 56px;
+            background-color: #6200EE;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .content {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .input-card {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        input, textarea {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        button {
+            background-color: #6200EE;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3700B3;
+        }
+        .note-card {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .note-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .note-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        .delete-btn {
+            background-color: #b00020;
+            font-size: 12px;
+            padding: 4px 8px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="status-bar">
+        <span>10:00</span>
+        <span>5G 🔋</span>
+    </div>
+    <div class="app-bar">
+        تطبيق الملاحظات
+    </div>
+    <div class="content">
+        <div class="input-card">
+            <input type="text" id="noteTitleInput" placeholder="عنوان الملاحظة...">
+            <textarea id="noteDescInput" rows="3" placeholder="محتوى الملاحظة..."></textarea>
+            <button onclick="addNote()">إضافة ملاحظة</button>
+        </div>
+        
+        <div id="notesContainer" style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Notes will appear here -->
+            <div class="note-card">
+                <div class="note-title">ملاحظة تجريبية</div>
+                <div class="note-desc">هذه ملاحظة تم إنشاؤها افتراضياً لتجربة واجهة المستخدم.</div>
+                <button class="delete-btn" onclick="this.parentElement.remove()">حذف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addNote() {
+        const titleInput = document.getElementById('noteTitleInput');
+        const descInput = document.getElementById('noteDescInput');
+        const container = document.getElementById('notesContainer');
+
+        if(titleInput.value.trim() === '' && descInput.value.trim() === '') return;
+
+        const card = document.createElement('div');
+        card.className = 'note-card';
+
+        const title = document.createElement('div');
+        title.className = 'note-title';
+        title.textContent = titleInput.value;
+
+        const desc = document.createElement('div');
+        desc.className = 'note-desc';
+        desc.textContent = descInput.value;
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = 'حذف';
+        delBtn.onclick = function() {
+            card.remove();
+        };
+
+        card.appendChild(title);
+        card.appendChild(desc);
+        card.appendChild(delBtn);
+
+        container.prepend(card);
+
+        titleInput.value = '';
+        descInput.value = '';
+    }
+</script>
+
+</body>
+</html>
