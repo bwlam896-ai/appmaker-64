@@ -31,6 +31,8 @@ jobs:
 
       - name: Prepare Project Structure & Clean Java Artifacts
         run: |
+          # إزالة أي ملفات إعدادات kotlin معطوبة متراكمة مسبقاً لمنع خطأ Script compilation error
+          rm -f settings.gradle.kts build.gradle.kts app/build.gradle.kts || true
           if [ -f "settings.gradle" ]; then
             sed -i 's/rootProject.name\s*=.*/rootProject.name = "app_64"/g' settings.gradle || true
             sed -i 's/FAIL_ON_PROJECT_REPOS/PREFER_SETTINGS/g' settings.gradle || true
@@ -88,7 +90,7 @@ jobs:
 
       - name: Sign and Rename Android Packages
         run: |
-          BUILD_TOOLS_DIR=$(ls -d$ANDROID_HOME/build-tools/* | sort -V | tail -n 1)
+          BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -n 1)
           find app/build/outputs/apk/release -name "*.apk" | while read APK_FILE; do
             $BUILD_TOOLS_DIR/zipalign -v -p 4 "$APK_FILE" aligned.apk || cp "$APK_FILE" aligned.apk
             $BUILD_TOOLS_DIR/apksigner sign --ks release.keystore --ks-pass pass:appmaker123 --key-pass pass:appmaker123 --out "app_64-v1.0.0.apk" aligned.apk
