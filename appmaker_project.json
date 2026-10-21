@@ -1,0 +1,26 @@
+{
+  "id": 64,
+  "name": "ملاحظات",
+  "packageId": "com.appmaker.app_mg7a",
+  "versionCode": 1,
+  "versionName": "1.0.0",
+  "type": "Kotlin (AI)",
+  "orientation": "portrait",
+  "fullscreen": false,
+  "monetizationModel": "free",
+  "securityLevel": "standard",
+  "permissions": {
+    "camera": false,
+    "location": false,
+    "audio": false,
+    "storage": false,
+    "internet": true,
+    "wifi": false,
+    "bluetooth": false,
+    "notifications": false,
+    "vibrate": false,
+    "wakeLock": false,
+    "boot": false
+  },
+  "updatedAt": "2026-10-21T18:13:27.001Z"
+}
