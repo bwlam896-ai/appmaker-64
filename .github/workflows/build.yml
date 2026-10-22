@@ -37,7 +37,7 @@ jobs:
             sed -i 's/rootProject.name\s*=.*/rootProject.name = "app_64"/g' settings.gradle || true
             sed -i 's/FAIL_ON_PROJECT_REPOS/PREFER_SETTINGS/g' settings.gradle || true
           fi
-          printf "plugins {\n    id 'com.android.application' version '8.2.2' apply false\n    id 'org.jetbrains.kotlin.android' version '1.9.22' apply false\n}\n" > build.gradle
+          printf "buildscript {\n    repositories {\n        google()\n        mavenCentral()\n    }\n    dependencies {\n        classpath 'com.android.tools.build:gradle:8.2.2'\n        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22'\n    }\n}\n\nallprojects {\n    repositories {\n        google()\n        mavenCentral()\n    }\n}\n" > build.gradle
           if ls app/src/main/java/**/*.kt 1> /dev/null 2>&1; then
             find app/src/main/java -type f -name "MainActivity.java" -delete || true
           fi
